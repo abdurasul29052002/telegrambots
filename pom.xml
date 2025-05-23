@@ -11,6 +11,7 @@
 
     <name>Telegram Bot Spring Boot Starter</name>
     <description>Auto-configurable Spring Boot starter for integrating Telegram bots into Spring applications</description>
+    <url>https://telegrambots.sonic.uz</url>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
