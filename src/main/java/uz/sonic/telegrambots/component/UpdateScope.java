@@ -6,7 +6,6 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.generics.LongPollingBot;
 import uz.sonic.telegrambots.annotations.AutoSend;
 
