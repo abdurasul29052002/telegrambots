@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uz.sonic</groupId>
-    <artifactId>telegrambots-spring-boot-starter</artifactId>
+    <artifactId>spring-boot-starter-telegrambots</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
@@ -36,9 +36,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/abdurasul29052002/intervals.git</connection>
-        <developerConnection>scm:git:ssh://github.com/abdurasul29052002/intervals.git</developerConnection>
-        <url>https://github.com/abdurasul29052002/intervals/tree/master</url>
+        <connection>scm:git:git://github.com/abdurasul29052002/telegrambots.git</connection>
+        <developerConnection>scm:git:ssh://github.com/abdurasul29052002/telegrambots.git</developerConnection>
+        <url>https://github.com/abdurasul29052002/telegrambots</url>
     </scm>
 
     <dependencies>
@@ -46,12 +46,14 @@
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
             <version>6.9.7.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
             <version>${spring-boot.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
