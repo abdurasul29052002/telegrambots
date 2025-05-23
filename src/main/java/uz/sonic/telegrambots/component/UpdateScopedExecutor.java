@@ -1,14 +1,12 @@
 package uz.sonic.telegrambots.component;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @RequiredArgsConstructor
-@Component
 public class UpdateScopedExecutor {
 
     private final UpdateScope updateScope;

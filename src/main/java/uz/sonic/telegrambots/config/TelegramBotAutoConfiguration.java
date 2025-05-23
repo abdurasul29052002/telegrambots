@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
-import uz.sonic.telegrambots.component.TelegramBotProperties;
-import uz.sonic.telegrambots.component.UpdateContextHolder;
+import uz.sonic.telegrambots.component.*;
 import uz.sonic.telegrambots.messages.AutoSendMessage;
 
 @Configuration
@@ -24,6 +23,21 @@ public class TelegramBotAutoConfiguration {
     @Bean
     public DefaultBotOptions defaultBotOptions() {
         return new DefaultBotOptions();
+    }
+
+    @Bean
+    public TelegramBotInitializer telegramBotInitializer(AbstractTelegramBot telegramBot) {
+        return new TelegramBotInitializer(telegramBot);
+    }
+
+    @Bean
+    public UpdateScope updateScope() {
+        return new UpdateScope();
+    }
+
+    @Bean
+    public UpdateScopedExecutor updateScopedExecutor(UpdateScope updateScope) {
+        return new UpdateScopedExecutor(updateScope);
     }
 
     @Bean
