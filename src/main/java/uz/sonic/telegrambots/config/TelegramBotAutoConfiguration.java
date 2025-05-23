@@ -1,5 +1,6 @@
 package uz.sonic.telegrambots.config;
 
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,13 @@ import uz.sonic.telegrambots.messages.AutoSendMessage;
 )
 @EnableConfigurationProperties(TelegramBotProperties.class)
 public class TelegramBotAutoConfiguration {
+
+    @Bean
+    public static CustomScopeConfigurer customScopeConfigurer(UpdateScope updateScope) {
+        CustomScopeConfigurer configurer = new CustomScopeConfigurer();
+        configurer.addScope("update", updateScope);
+        return configurer;
+    }
 
     @Bean
     public DefaultBotOptions defaultBotOptions() {
