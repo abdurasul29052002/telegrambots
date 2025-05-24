@@ -6,15 +6,14 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.generics.LongPollingBot;
 import uz.sonic.telegrambots.annotations.AutoSend;
 
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
 @Slf4j
 public class UpdateScope implements Scope, ApplicationContextAware {
 
@@ -38,12 +37,18 @@ public class UpdateScope implements Scope, ApplicationContextAware {
                 LongPollingBot botInstance = applicationContext.getBean(botClass);
 
                 registerDestructionCallback(name, () -> {
-                    try {
-                        var executeMethod = botClass.getMethod("execute", bean.getClass());
-                        executeMethod.invoke(botInstance, bean);
-                    } catch (Exception e) {
-                        log.error("Auto-send failed for {}", bean.getClass(), e);
-                    }
+                    Arrays.stream(botClass.getMethods())
+                            .filter(method -> method.getName().equals("execute"))
+                            .filter(method -> Arrays.stream(method.getParameterTypes()).anyMatch(paramType -> paramType.isAssignableFrom(bean.getClass())))
+                            .findFirst()
+                            .ifPresent(method -> {
+                                try {
+                                    method.invoke(botInstance, bean);
+                                } catch (Exception e) {
+                                    log.error("Auto-send failed for {}", bean.getClass(), e);
+                                }
+                            });
+
                 });
             }
             return bean;
