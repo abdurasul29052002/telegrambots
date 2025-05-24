@@ -1,21 +1,30 @@
-# Telgrambots Starter ![Version](https://img.shields.io/badge/version-0.0.2-blue.svg) ![License](https://img.shields.io/badge/license-apache2.0-green.svg)
-This library is the starter library for Spring boot applications. 
+# TelegramBots Starter 
+![Version](https://img.shields.io/badge/version-0.0.2-blue.svg) 
+![License](https://img.shields.io/badge/license-apache2.0-green.svg)
 
-The purpose of this library to make easier building telegram bot applications using Spring boot. 
-With this library you can focus on your logic of own telegram bot instead of creating message objects copying `chatId` and send them to the user manually. 
+**TelegramBots Starter** is a Spring Boot starter library designed to simplify the development of Telegram bot applications.
+
+Instead of manually creating message objects, copying `chatId`s, and managing message dispatch logic, this library allows you to focus solely on the core logic of your bot.
+
+---
 
 ## ✨ Features
-- Easy use of api
-- Faster creation of telegram bot applications with Spring boot
+
+- Easy-to-use API
+- Faster development of Telegram bots with Spring Boot
 - Automatic management of `Message` beans
-- Automatic retreive data from `Upatade`
-- Automatic send `Message` to the user after execution of you logic
+- Automatic extraction of data from `Update` objects
+- Automatic message sending after logic execution
+- Built-in support for virtual threads (Java 21+ required)
+
+---
 
 ## 📦 Installation
 
-Using `Maven`:
+> **Note:** This library requires the [telegrambots](https://github.com/rubenlagus/TelegramBots) dependency.
 
-This library requires the original telegram bot library therefore you need to add `telegrambots` dependency first
+First, add the Telegram Bots dependency:
+
 ```xml
 <dependency>
     <groupId>org.telegram</groupId>
@@ -24,7 +33,7 @@ This library requires the original telegram bot library therefore you need to ad
 </dependency>
 ```
 
-Then you can add this starter library. 
+Then, add this starter library:
 ```xml
 <dependency>
     <groupId>uz.sonic</groupId>
@@ -35,7 +44,8 @@ Then you can add this starter library.
 
 
 ## **Usage**
-You just need to add your telegram bot username and token to your `application.properties` of `application.yml`
+### 1. Configure Your Bot
+Add the following properties to your `application.yml` (or `application.properties`):
 
 ```yml
 telegram:
@@ -44,9 +54,8 @@ telegram:
     token: ${BOT_TOKEN}
 ```
 
-Then you need to create your telegram bot class and extend that class from this library's `AbstractTelegramBot` class. 
-
-`Note`: YOUR TELEGRAM BOT CLASS SHOULD BE SPRING BEAN. Don't forget to put `@Component` annotation in it.
+### 2. Create Your Telegram Bot
+Extend `AbstractTelegramBot` and annotate the class with `@Component`:
 
 ```java
 @Component
@@ -58,7 +67,8 @@ public class MyBot extends AbstractTelegramBot {
 }
 ```
 
-Then you need to create your bot service class which implements from our `BotService` interface and make it spring bean.
+### 3. Implement Your Bot Logic
+Create a class that implements `BotService` and annotate it with `@Component`:
 
 ```java
 @Component
@@ -71,11 +81,9 @@ public class MyBotService implements BotService {
     }
 }
 ```
-And that's it. You will receive your updates in your bot service class. 
 
-In addition this is not only redirect's update to the service. This library provides automatic send message to the user. 
-There are classes which extends from `SendMessage` class. You just need to inject that beans and use them like `SendMessage` object.
-It will automatic send messages to the user
+### 4. Automatically Send Messages
+You can inject `AutoSendMessage` (which extends `SendMessage`) and use it directly:
 
 ```java
 @Component
@@ -95,10 +103,14 @@ public class MyBotService implements BotService {
     }
 }
 ```
+> This library will automatically send the message when `AutoSendMessage` is configured properly.
 
-Moreover this library uses `virtual threads` for every update. Due to this you need at least 21 version of Java.
+## 🔧 Requirements
 
-This source code can be found on GitHub [link](https://github.com/abdurasul29052002/telegrambots-sample)
+Java 21 or higher (required for virtual thread support)
+
+## 📂 Source Code
+Find the full source code on GitHub: [telegrambots-sample](https://github.com/abdurasul29052002/telegrambots-sample)
 
 ## 🤝 Contributing
 
