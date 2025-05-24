@@ -38,6 +38,7 @@ public class UpdateScope implements Scope, ApplicationContextAware {
 
                 registerDestructionCallback(name, () -> {
                     Arrays.stream(botClass.getMethods())
+                            .filter(method -> method.getName().equals("execute"))
                             .filter(method -> Arrays.stream(method.getParameterTypes()).anyMatch(paramType -> paramType.isAssignableFrom(bean.getClass())))
                             .findFirst()
                             .ifPresent(method -> {
